@@ -29,7 +29,7 @@ const InputField = ({navigation} : NativeStackScreenProps<RootComponents , 'Form
         axios.get(`https://api.nasa.gov/neo/rest/v1/neo/${num}?api_key=OkUUGW9SwyjTwnzKiGBqqLTRKkc30GHiNrWxJcsy`)
         .then((res)=>{
             const result = res.data
-            console.log('hazard',result.is_potentially_hazardous_asteroid)
+            //console.log('hazard',result.is_potentially_hazardous_asteroid)
 
             navigation.navigate('Details', {
                 name : result.name,
@@ -48,7 +48,7 @@ const InputField = ({navigation} : NativeStackScreenProps<RootComponents , 'Form
          axios.get(`https://api.nasa.gov/neo/rest/v1/neo/${res2}?api_key=OkUUGW9SwyjTwnzKiGBqqLTRKkc30GHiNrWxJcsy`)
          .then((res)=>{
              const result = res.data
-             console.log(result)
+            // console.log(result)
 
              navigation.navigate('Random', {
                 name : result.name,
