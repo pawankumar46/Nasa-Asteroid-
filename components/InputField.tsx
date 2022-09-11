@@ -64,7 +64,8 @@ const InputField = ({navigation} : NativeStackScreenProps<RootComponents , 'Aste
           <View>
           <Text style={styles.word}>Nasa-Asteroid-Info</Text>
          <View style={styles.text} >
-        <SelectList   data={details} setSelected={setNum} boxStyles={{borderRadius:10}} inputStyles={{}} />
+        <SelectList   data={details} setSelected={setNum} search={true} onSelect={() => alert(num)} boxStyles={{borderRadius:10}} inputStyles={{fontSize : 18 , fontWeight : 'bold'}}
+           />
         </View>
          <View style={styles.btn}>
           <Button disabled={num.length===0} title='Submit' onPress={handlePress}></Button>
