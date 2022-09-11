@@ -1,11 +1,11 @@
-import { View, Text ,  Button  , StyleSheet } from 'react-native'
+import { View, Text ,  Button  , StyleSheet, TouchableOpacity } from 'react-native'
 import React,{useState , useEffect} from 'react'
 import axios from 'axios'
 import SelectList from 'react-native-dropdown-select-list'
 
 import {NativeStackScreenProps} from '@react-navigation/native-stack'
 import { RootComponents } from './Container'
-const InputField = ({navigation} : NativeStackScreenProps<RootComponents , 'Form'>) => {
+const InputField = ({navigation} : NativeStackScreenProps<RootComponents , 'Asteroid'>) => {
    const [details , setDetails] = useState([])
    const [num , setNum] = useState('')
 
@@ -60,34 +60,46 @@ const InputField = ({navigation} : NativeStackScreenProps<RootComponents , 'Form
        
      }
   return (
-       <View >
+       <View  >
+          <View>
+          <Text style={styles.word}>Nasa-Asteroid-Info</Text>
          <View style={styles.text} >
-        <SelectList   data={details} setSelected={setNum} />
+        <SelectList   data={details} setSelected={setNum} boxStyles={{borderRadius:10}} inputStyles={{}} />
         </View>
          <View style={styles.btn}>
           <Button disabled={num.length===0} title='Submit' onPress={handlePress}></Button>
           </View>
 
-          <View style={styles.btn}>
-            <Button title='Random-Id' onPress={handleRandom}></Button>
+          <View  style={styles.btn}>
+            <Button title='Random' onPress={handleRandom} ></Button>
+            {/* <TouchableOpacity style={styles.btn} onPress={handleRandom}><Text>rrr</Text></TouchableOpacity> */}
+          </View>
           </View>
        </View>
   )
 }
 
 const styles = StyleSheet.create({
-    
+    word : {
+      textAlign : 'center',
+      paddingTop : 70,
+      fontWeight : 'bold',
+      fontSize  : 20
+    },
    text : {
      margin : 2,
-     paddingTop : 80,
+     paddingTop : 130,
+     width : 200,
+     marginLeft : 70,
+    
      
     
   } ,
    btn : {
     width : 200,
     padding : 30,
-    marginLeft : 60
-   },
+    marginLeft : 70,
+    },
   
 })
 

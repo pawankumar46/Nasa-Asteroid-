@@ -9,7 +9,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack'
 
 
  export type RootComponents ={
-    Form : any;
+  Asteroid : any;
     Details : any;
     Random : any
  }
@@ -17,18 +17,47 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack'
  const Stack = createNativeStackNavigator<RootComponents>()
 const Container = () => {
   return (
-    <Stack.Navigator initialRouteName='Form' 
-    screenOptions={{
-        headerStyle : {
-          backgroundColor : 'lightblue',
-           
-        },
-        headerTintColor : 'black'
+    <Stack.Navigator initialRouteName='Asteroid' 
+    
         
-      }}>
-        <Stack.Screen name='Form' component={InputField}  options={{title : 'Nasa'}} />
-        <Stack.Screen  name='Details' component={Details}  options={{title : 'Information'}}/>
-        <Stack.Screen  name='Random' component={Random}  options={{title : 'Information'}}/>
+      >
+        <Stack.Screen name='Asteroid' component={InputField}  options={{
+          headerTitleAlign : 'center',
+          title: 'Asteroid',
+          headerStyle: {
+            backgroundColor: 'lightblue',
+            },
+          headerTintColor: 'black',
+           headerTitleStyle: {
+            fontSize: 25,
+            fontWeight : 'bold'
+            },
+        }} />
+
+        <Stack.Screen  name='Details' component={Details}  options={{
+          headerTitleAlign : 'center',
+          title: 'Details',
+          headerStyle: {
+            backgroundColor: 'lightblue',
+            },
+          headerTintColor: 'black',
+          headerTitleStyle: {
+             fontSize: 25,
+            fontWeight : 'bold'
+           },
+        }}/>
+        <Stack.Screen  name='Random' component={Random} options={{
+          headerTitleAlign : 'center',
+          title: 'Random',
+          headerStyle: {
+            backgroundColor: 'lightblue',
+            },
+          headerTintColor: 'black',
+          headerTitleStyle: {
+             fontSize: 25,
+            fontWeight : 'bold'
+           },
+        }}/>
 
 
     </Stack.Navigator>

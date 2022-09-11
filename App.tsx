@@ -31,8 +31,12 @@ const styles = StyleSheet.create({
     
   },
    inner : {
-    width : '90%',
-    height : '80%',
-    backgroundColor : 'rgba(255,255,255,.4)'
+    width : 350,
+    height : 700,
+    opacity : .7,
+    backgroundColor : 'rgba(125,125,125)',
+    borderWidth  : 1,
+    
+    
    }
 });
