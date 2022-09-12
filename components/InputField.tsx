@@ -1,13 +1,16 @@
-import { View, Text ,  Button  , StyleSheet, TouchableOpacity } from 'react-native'
+import { View, Text ,  Button  , StyleSheet, TouchableOpacity, TextInput } from 'react-native'
 import React,{useState , useEffect} from 'react'
 import axios from 'axios'
 import SelectList from 'react-native-dropdown-select-list'
+
 
 import {NativeStackScreenProps} from '@react-navigation/native-stack'
 import { RootComponents } from './Container'
 const InputField = ({navigation} : NativeStackScreenProps<RootComponents , 'Asteroid'>) => {
    const [details , setDetails] = useState([])
    const [num , setNum] = useState('')
+   const [ids , setIds] = useState('')
+   const [ error , setError] = useState('')
 
      useEffect(()=>{
         axios.get(`https://api.nasa.gov/neo/rest/v1/neo/browse?api_key=OkUUGW9SwyjTwnzKiGBqqLTRKkc30GHiNrWxJcsy`)
@@ -26,7 +29,7 @@ const InputField = ({navigation} : NativeStackScreenProps<RootComponents , 'Aste
       // Submit button 
 
      const handlePress=()=>{
-        axios.get(`https://api.nasa.gov/neo/rest/v1/neo/${num}?api_key=OkUUGW9SwyjTwnzKiGBqqLTRKkc30GHiNrWxJcsy`)
+        axios.get(`https://api.nasa.gov/neo/rest/v1/neo/${ids}?api_key=OkUUGW9SwyjTwnzKiGBqqLTRKkc30GHiNrWxJcsy`)
         .then((res)=>{
             const result = res.data
             //console.log('hazard',result.is_potentially_hazardous_asteroid)
@@ -37,7 +40,13 @@ const InputField = ({navigation} : NativeStackScreenProps<RootComponents , 'Aste
                 url   : result.nasa_jpl_url
             })
         })
-        .catch((err)=> err.message)
+        .catch((err)=>{
+         if(err){
+           setError(`Asteroid-Id not found. Please enter a valid Id`)
+           alert(`${error}`)
+         }
+      })
+       
      }
  
      // Random button 
@@ -56,19 +65,22 @@ const InputField = ({navigation} : NativeStackScreenProps<RootComponents , 'Aste
                 url   : result.nasa_jpl_url
             })
          })
-         .catch((err)=> err.message)
+         .catch((err)=> alert(err.message) )
        
      }
+     console.log('error' ,error)
+     
   return (
        <View  >
           <View>
           <Text style={styles.word}>Nasa-Asteroid-Info</Text>
          <View style={styles.text} >
-        <SelectList placeholder='Enter Asteroid-Id'  data={details} setSelected={setNum} search={false} onSelect={() => alert(num)} boxStyles={{borderRadius:10}} inputStyles={{fontSize : 18 , fontWeight : 'bold'}}
-           />
+        {/* <SelectList placeholder='Enter Asteroid-Id'  data={details} setSelected={setNum} search={false} onSelect={() => alert(num)} boxStyles={{borderRadius:10}} inputStyles={{fontSize : 18 , fontWeight : 'bold'}}
+           /> */}
+           <TextInput placeholder='Enter-Asteroid-Id' value={ids} onChangeText={(text)=>setIds(text)}  />
         </View>
          <View style={styles.btn}>
-          <Button disabled={num.length===0} title='Submit' onPress={handlePress}></Button>
+          <Button disabled={ids.length===0} title='Submit' onPress={handlePress}></Button>
           </View>
 
           <View  style={styles.btn}>
@@ -88,10 +100,14 @@ const styles = StyleSheet.create({
       fontSize  : 20
     },
    text : {
-     margin : 2,
-     paddingTop : 130,
-     width : 200,
-     marginLeft : 70,
+     marginTop : 20,
+     paddingTop : 10,
+     padding : 20,
+     width : 250,
+     marginLeft : 50,
+     borderWidth : 1,
+     borderRadius : 15,
+     fontSize  : 20
     
      
     
