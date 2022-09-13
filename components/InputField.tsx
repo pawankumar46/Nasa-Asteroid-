@@ -8,10 +8,13 @@ import {NativeStackScreenProps} from '@react-navigation/native-stack'
 import { RootComponents } from './Container'
 const InputField = ({navigation} : NativeStackScreenProps<RootComponents , 'Asteroid'>) => {
    const [details , setDetails] = useState([])
-   const [num , setNum] = useState('')
+   
    const [ids , setIds] = useState('')
-   const [ error , setError] = useState('')
+   const [ error , setError] = useState('Asteroid-Id not found. Please enter a valid Id')
 
+
+
+    
      useEffect(()=>{
         axios.get(`https://api.nasa.gov/neo/rest/v1/neo/browse?api_key=OkUUGW9SwyjTwnzKiGBqqLTRKkc30GHiNrWxJcsy`)
         .then((res)=>{
@@ -22,8 +25,8 @@ const InputField = ({navigation} : NativeStackScreenProps<RootComponents , 'Aste
         .catch((err)=> err.message)
      },[])
       
-     console.log(details)
-     console.log(num)
+    
+   
      
 
       // Submit button 
@@ -42,22 +45,23 @@ const InputField = ({navigation} : NativeStackScreenProps<RootComponents , 'Aste
         })
         .catch((err)=>{
          if(err){
-           setError(`Asteroid-Id not found. Please enter a valid Id`)
+           
            alert(`${error}`)
+           setIds('')
          }
       })
-       
+       setIds('')
      }
  
      // Random button 
      const handleRandom=()=>{
         let random = Math.floor(Math.random() * details.length)
          let res2=  details[random]
-         console.log(res2)
+       
          axios.get(`https://api.nasa.gov/neo/rest/v1/neo/${res2}?api_key=OkUUGW9SwyjTwnzKiGBqqLTRKkc30GHiNrWxJcsy`)
          .then((res)=>{
              const result = res.data
-            // console.log(result)
+         
 
              navigation.navigate('Random', {
                 name : result.name,
@@ -66,9 +70,9 @@ const InputField = ({navigation} : NativeStackScreenProps<RootComponents , 'Aste
             })
          })
          .catch((err)=> alert(err.message) )
-       
+         setIds('')
      }
-     console.log('error' ,error)
+    
      
   return (
        <View  >
@@ -77,7 +81,7 @@ const InputField = ({navigation} : NativeStackScreenProps<RootComponents , 'Aste
          <View style={styles.text} >
         {/* <SelectList placeholder='Enter Asteroid-Id'  data={details} setSelected={setNum} search={false} onSelect={() => alert(num)} boxStyles={{borderRadius:10}} inputStyles={{fontSize : 18 , fontWeight : 'bold'}}
            /> */}
-           <TextInput placeholder='Enter-Asteroid-Id' value={ids} onChangeText={(text)=>setIds(text)}  />
+           <TextInput placeholder='Enter-Asteroid-Id' value={ids} onChangeText={(text)=> setIds(text)}  />
         </View>
          <View style={styles.btn}>
           <Button disabled={ids.length===0} title='Submit' onPress={handlePress}></Button>
